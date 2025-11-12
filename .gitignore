@@ -5,3 +5,6 @@ __MACOSX/
 # Editor
 .vscode/
 .idea/
+
+# me
+*.psd
