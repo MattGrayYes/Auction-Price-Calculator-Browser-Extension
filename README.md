@@ -1,116 +1,91 @@
 # Auction Price Calculator Browser Extension
 
-A browser extension that automatically calculates the full price (including buyer's premium and VAT) for various auction websites.
+A browser extension that automatically calculates the full price (including buyer's premium and VAT) for auction websites.
+The extension is designed to work across multiple auction sites.
+
+This project has been entirely vibecoded with Github Copilot + Claude Sonnet 4.5, because I wanted a quick solution.
+
+## Features
+
+- **Extensible Architecture**: Easy to add support for new auction sites
+- **Privacy-focused**: No permissions required, all calculations done locally
 
 ## Currently Supported Sites
 
-- **BidSpotter** (bidspotter.com, bidspotter.co.uk)
-  - Buyer's Premium: 26%
-  - VAT: 20%
+### BidSpotter
+- Individual listing pages with live bid updates
+- Search results pages with multiple lots
+- Automatic fee detection from auction catalogues
+- Fallback to default rates when fees cant be found
+- **Default Rates**: 20% buyer's premium + 20% VAT
 
 ## Installation
 
-### Chrome/Edge/Brave
+### Firefox
+1. Download or clone this repository
+2. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
+3. Click **Load Temporary Add-on**
+4. Navigate to the extension folder and select `manifest.json`
+5. The extension will be loaded temporarily (until browser restart)
 
-1. Open your browser and navigate to the extensions page:
+### Chrome/Edge
+1. Download or clone this repository
+2. Open your browser and navigate to the extensions page:
    - Chrome: `chrome://extensions/`
    - Edge: `edge://extensions/`
    - Brave: `brave://extensions/`
+3. Enable **Developer mode** (toggle in the top right corner)
+4. Click **Load unpacked**
+5. Select the extension folder (containing `manifest.json`)
+6. The extension will now run automatically on supported sites
 
-2. Enable "Developer mode" (toggle in the top right corner)
-
-3. Click "Load unpacked"
-
-4. Select the extension folder (the folder containing `manifest.json`)
-
-5. The extension is now installed and will automatically run on supported sites
-
-### Firefox
-
-1. Open Firefox and navigate to `about:debugging#/runtime/this-firefox`
-
-2. Click "Load Temporary Add-on"
-
-3. Navigate to the extension folder and select the `manifest.json` file
-
-4. The extension will be loaded temporarily (until you restart Firefox)
-
-## How It Works
-
-When you visit a supported auction site, the extension:
-1. Finds the current bid price in the page
-2. Calculates the full price including buyer's premium and VAT
-3. Displays the calculated price in green next to the current bid
-
-The calculated price updates automatically when the bid changes.
 
 ## Adding Support for New Auction Sites
 
-To add a new auction site:
+### 1. Create a Site-Specific Script
 
-1. Copy `sites/_template.js` to a new file (e.g., `sites/example-auction.js`)
+Copy the template and customize it:
 
-2. Update the configuration:
-   ```javascript
-   const config = {
-       buyersPremium: 1.25,  // e.g., 25% = 1.25
-       vat: 1.20,             // e.g., 20% = 1.20
-       selectors: {
-           amount: '.bid-amount',      // CSS selector for bid amount
-           currency: '.currency',       // CSS selector for currency (optional)
-           container: '.bid-container'  // CSS selector where to insert the price
-       }
-   };
-   ```
+```bash
+cp sites/_template.js sites/yoursite.js
+```
 
-3. Add the new site to `manifest.json`:
-   ```json
-   {
-     "matches": ["*://*.example-auction.com/*"],
-     "js": ["sites/example-auction.js"],
-     "run_at": "document_idle"
-   }
-   ```
+Edit `sites/yoursite.js`:
 
-4. Reload the extension in your browser
+```javascript
+const config = {
+    buyersPremiumPercent: 25,  // e.g., 25%
+    vatPercent: 20,            // e.g., 20%
+    selectors: {
+        amount: '.bid-amount strong',      // CSS selector for bid amount
+        currency: '.currency-symbol',      // CSS selector for currency (optional)
+        container: '.bid-container'        // Where to insert calculated price
+    }
+};
+```
+
+### 2. Update the Manifest
+
+Add the new site to `manifest.json`:
+
+```json
+{
+  "matches": ["*://*.yoursite.com/*"],
+  "js": ["sites/yoursite.js"],
+  "run_at": "document_idle"
+}
+```
+
+### 3. Test and Reload
+
+1. Reload the extension in your browser
+2. Visit the auction site
+3. Check browser console for any errors
 
 ### Finding CSS Selectors
 
 1. Visit the auction site
-2. Right-click on the bid amount and select "Inspect"
-3. In the developer tools, right-click the highlighted element
-4. Select "Copy" → "Copy selector" to get the CSS selector
-
-## Project Structure
-
-```
-.
-├── manifest.json              # Extension configuration
-├── sites/
-│   ├── bidspotter.js         # BidSpotter.com implementation
-│   └── _template.js          # Template for new sites
-└── README.md                 # This file
-```
-
-## Notes
-
-- The extension requires no special permissions
-- All calculations are done locally in your browser
-- The extension uses MutationObserver to detect bid updates automatically
-- If the calculated price doesn't appear, check the browser console for error messages
-
-## Troubleshooting
-
-If the price doesn't appear:
-
-1. Open the browser console (F12 → Console tab)
-2. Look for messages starting with "Auction Price Calculator:"
-3. The message will indicate which element couldn't be found
-4. Adjust the CSS selectors in the site-specific file accordingly
-
-## Future Enhancements
-
-- Add an options page to customize buyer's premium and VAT rates per site
-- Support for different currencies
-- Popup showing all current prices on the page
-- Export/import configuration
+2. Right-click on the bid amount → **Inspect**
+3. In DevTools, right-click the highlighted element
+4. Select **Copy** → **Copy selector**
+5. Use this selector in your configuration
