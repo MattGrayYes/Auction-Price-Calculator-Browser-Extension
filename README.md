@@ -89,3 +89,6 @@ Add the new site to `manifest.json`:
 3. In DevTools, right-click the highlighted element
 4. Select **Copy** → **Copy selector**
 5. Use this selector in your configuration
+
+# Credits
+Icon: [Gavel by pexel verse from Noun Project](https://thenounproject.com/icon/gavel-7672030/) (CC BY 3.0)
