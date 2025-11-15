@@ -3,6 +3,9 @@
 A browser extension that automatically calculates the full price (including buyer's premium and VAT) for auction websites.
 The extension is designed to work across multiple auction sites.
 
+* Add to Chrome: [Auction Price Calculator Chrome Extension](https://chromewebstore.google.com/detail/auction-price-calculator/jobmbfcaagopgnlbkgdaejokamgedkhf)
+* Add to Firefox: [Auction Price Calculator Firefox Extension](https://addons.mozilla.org/en-GB/firefox/addon/auction-price-calculator/) (awaiting review)
+
 This project has been entirely vibecoded with Github Copilot + Claude Sonnet 4.5, because I wanted a quick solution.
 
 ## Features
