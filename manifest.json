@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Auction Price Calculator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Calculates the full price including buyer's premium and VAT for various auction sites",
   "browser_specific_settings": {
     "gecko": {
