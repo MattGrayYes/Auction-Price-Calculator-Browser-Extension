@@ -17,6 +17,11 @@
       "matches": ["*://*.bidspotter.co.uk/*"],
       "js": ["sites/bidspotter.js"],
       "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://auctions.kitplus.com/*"],
+      "js": ["sites/kitplus.js"],
+      "run_at": "document_idle"
     }
   ],
   "icons": {
