@@ -22,6 +22,13 @@ This project has been entirely vibecoded with Github Copilot + Claude Sonnet 4.5
 - Fallback to default rates when fees cant be found
 - **Default Rates**: 20% buyer's premium + 20% VAT
 
+### Kitplus
+- Individual listing pages with live bid updates
+- Search results pages with multiple lots
+- Automatic fee detection from listings
+- Fallback to default rates when fees cant be found
+- **Default Rates**: 15% buyer's premium + 20% VAT
+
 ## Installation
 
 ### Firefox
